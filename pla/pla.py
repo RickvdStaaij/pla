@@ -36,6 +36,8 @@ plafile = 'Plafile.yml'
 @click.argument('target', default='all')
 @click.pass_context
 def pla(context, target):
+    click.echo(click.style('Pla ' + __version__ + ' by Richard Tuin - Coder\'s simplest workflow automation tool.'))
+
     pla_file_path = find_pla_file(os.getcwd(), plafile)
     if not pla_file_path:
         raise click.UsageError(
@@ -82,7 +84,7 @@ def pla(context, target):
             'Target "' + target + '" not present in ' + plafile + '. \nValid targets are: ' + '\n    ' +
             ('\n    '.join(pla_targets.keys())))
 
-    click.echo('Pla ' + __version__ + ' by Richard Tuin, running target "' + target + '":')
+    click.echo('Running target "' + target + '":')
 
     target_runner = TargetRunner(pla_targets)
     run_result = target_runner.run(os.path.dirname(pla_file_path), target, context.args)
